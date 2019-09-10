@@ -40,6 +40,10 @@ public class Blueprint {
     public List<Point> getPoints() {
         return points;
     }
+
+    public void setPoints(Point[] pnts){
+        this.points=Arrays.asList(pnts);
+    }
     
     public void addPoint(Point p){
         this.points.add(p);

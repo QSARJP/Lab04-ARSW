@@ -40,24 +40,18 @@ public class BlueprintsServices {
 
     Set<Blueprint> blueprints = new HashSet<>();
 
-    public void addNewBlueprint(Blueprint bp) {
-        try {
-            bpp.saveBlueprint(bp);
-        } catch (BlueprintPersistenceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void addNewBlueprint(Blueprint bp) throws BlueprintPersistenceException {
+        
+        bpp.saveBlueprint(bp);
+        
         blueprints.add(bp);
     }
     
-    public Set<Blueprint> getAllBlueprints(){
+    public Set<Blueprint> getAllBlueprints() throws BlueprintNotFoundException {
         Set<Blueprint> allBlue = null;
-        try {
-            allBlue = bpp.getBlueprints();
-        } catch (BlueprintNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
+        allBlue = bpp.getBlueprints();
+        
         return allBlue;
         
     }
@@ -95,6 +89,16 @@ public class BlueprintsServices {
             allBlue = bpp.getBlueprintsByAuthor(author);
         
         return allBlue;
+        
+    }
+
+   
+    public void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException{
+        
+        Blueprint blue =bpp.getBlueprint(author, bprintname);
+        blue.setPoints(points);
+        
+        
         
     }
     

@@ -79,7 +79,7 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
         }
         if (blue.isEmpty()){
-            throw new BlueprintNotFoundException("No encontro el autor o la obra");
+            throw new BlueprintNotFoundException("Error 404: No encontro el autor o la obra ");
         }else {
             return blue;
         }
@@ -95,10 +95,18 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
         }
         if (blue.isEmpty()){
-            throw new BlueprintNotFoundException("No encontro el autor o la obra");
+            throw new BlueprintNotFoundException("Error 404: No encontro el autor o la obra");
         }else {
             return blue;
         }
+        
+
+    }
+
+    @Override
+    public  void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException {
+        
+        
         
 
     }

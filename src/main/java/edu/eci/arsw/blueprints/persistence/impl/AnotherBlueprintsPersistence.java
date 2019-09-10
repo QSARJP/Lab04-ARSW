@@ -59,4 +59,9 @@ public class AnotherBlueprintsPersistence implements BlueprintsPersistence {
         return null;
     }
 
+    @Override
+    public void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException {
+
+    }
+
 }
