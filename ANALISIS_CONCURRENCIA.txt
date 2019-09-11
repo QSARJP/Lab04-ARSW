@@ -1,0 +1,10 @@
+* What race conditions could occur? 
+
+una condicion de carrera se da cunado se actualiza la fuente principal de guardado de los datos, el cual es el hashMap 
+Que contiene todos los blueprint con su respectivo nombre y autor. dandonos certeza que si piorizamos esta problematica no 
+deberia existir este evento de condicion de carrera por un recurso.
+
+* What are the respective critical regions? 
+
+la region critca se da cada vez que se realiza un llamado a este HashMap ya sea para consulta o para ingresar un nuevo elemento a la estructura de datos.
+Para este caso casi en cada metodo toca sincronizar el hashmap con el fin de garantizar que no hallan condiciones de carrera por el recurso 
