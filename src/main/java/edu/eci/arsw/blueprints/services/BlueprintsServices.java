@@ -93,12 +93,10 @@ public class BlueprintsServices {
     }
 
    
-    public void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException{
+    public void updatePoints(String author, String bprintname,Blueprint blue2) throws BlueprintNotFoundException{
         
         Blueprint blue =bpp.getBlueprint(author, bprintname);
-        blue.setPoints(points);
-        
-        
+        blue.setPoints(blue2.getPoints());
         
     }
     

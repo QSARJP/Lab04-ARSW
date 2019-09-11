@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -86,10 +89,11 @@ public class BlueprintAPIController {
 
     
 
-    @RequestMapping(path = "/{author}/{bpname}/{points}",method = RequestMethod.PUT)	
-    public ResponseEntity<?> manejadorPostRecursoAddNewBlueprint(@PathVariable("author") String author,@PathVariable("bpname") String bpname,@PathVariable("points") Point[] points){
+    @RequestMapping(path = "/{author}/{bpname}",method = RequestMethod.PUT)	
+    public ResponseEntity<?> manejadorPostRecursoAddNewBlueprint(@PathVariable("author") String author,@PathVariable("bpname") String bpname,@Valid @RequestBody Blueprint blue){
         try {
-            bps.updatePoints(author, bpname, points);
+            
+            bps.updatePoints(author, bpname, blue);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (Exception ex) {
             Logger.getLogger(BlueprintAPIController.class.getName()).log(Level.SEVERE, null, ex);

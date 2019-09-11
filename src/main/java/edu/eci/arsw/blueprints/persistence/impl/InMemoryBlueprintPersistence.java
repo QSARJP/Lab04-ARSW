@@ -49,68 +49,87 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
 
     @Override
     public void saveBlueprint(Blueprint bp) throws BlueprintPersistenceException {
-        if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
-            throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
-        } else {
-            blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+        synchronized(blueprints){
+            if (blueprints.containsKey(new Tuple<>(bp.getAuthor(), bp.getName()))) {
+                throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
+            } else {
+                blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+            }
         }
+        
     }
 
     @Override
     public Blueprint getBlueprint(String author, String bprintname) throws BlueprintNotFoundException {
-
-        if ( blueprints.get(new Tuple<>(author, bprintname)).equals(null) ){
-            throw new BlueprintNotFoundException("No encontro el autor o la obra");
-        }else{
-            return blueprints.get(new Tuple<>(author, bprintname));
+        synchronized(blueprints){
+            if ( blueprints.get(new Tuple<>(author, bprintname)).equals(null) ){
+                throw new BlueprintNotFoundException("No encontro el autor o la obra");
+            }else{
+                return blueprints.get(new Tuple<>(author, bprintname));
+            }
         }
+        
         
     }
 
     @Override
     public Set<Blueprint> getBlueprintsByAuthor(String author) throws BlueprintNotFoundException {
         Set<Blueprint> blue = new HashSet<>();
-        for (Entry<Tuple<String, String>, Blueprint> entry : blueprints.entrySet()) {
+        synchronized(blueprints){
+            for (Entry<Tuple<String, String>, Blueprint> entry : blueprints.entrySet()) {
 
-            if (entry.getKey().getElem1().equals( author)){
-                blue.add(entry.getValue());
-
+                if (entry.getKey().getElem1().equals( author)){
+                    blue.add(entry.getValue());
+    
+                }
+    
+            }
+            if (blue.isEmpty()){
+                throw new BlueprintNotFoundException("Error 404: No encontro el autor  ");
+            }else {
+                return blue;
             }
 
         }
-        if (blue.isEmpty()){
-            throw new BlueprintNotFoundException("Error 404: No encontro el autor o la obra ");
-        }else {
-            return blue;
-        }
+        
         
     }
 
     @Override
     public  Set<Blueprint> getBlueprints() throws BlueprintNotFoundException {
         Set<Blueprint> blue = new HashSet<>();
-        for (Entry<Tuple<String, String>, Blueprint> entry : blueprints.entrySet()) {
+        synchronized(blueprints){
+            for (Entry<Tuple<String, String>, Blueprint> entry : blueprints.entrySet()) {
 
-            blue.add(entry.getValue());
-
+                blue.add(entry.getValue());
+    
+            }
+            if (blue.isEmpty()){
+                throw new BlueprintNotFoundException("Error 404: No encontro el autor o la obra");
+            }else {
+                return blue;
+            }
         }
-        if (blue.isEmpty()){
-            throw new BlueprintNotFoundException("Error 404: No encontro el autor o la obra");
-        }else {
-            return blue;
-        }
+        
         
 
     }
-
+/*
     @Override
     public  void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException {
         
-        
+        synchronized(blueprints){
+            if (blueprints.containsKey(new Tuple<>(author, bprintname))) {
+                
+            } else {
+                blueprints.put(new Tuple<>(bp.getAuthor(), bp.getName()), bp);
+                throw new BlueprintPersistenceException("The given blueprint already exists: " + bp);
+            }
+        }
         
 
     }
-
+*/
 
 
 

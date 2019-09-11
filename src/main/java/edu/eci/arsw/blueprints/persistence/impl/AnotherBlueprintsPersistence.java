@@ -58,10 +58,10 @@ public class AnotherBlueprintsPersistence implements BlueprintsPersistence {
     public Set<Blueprint> getBlueprints() throws BlueprintNotFoundException {
         return null;
     }
-
+/*
     @Override
     public void updatePoints(String author, String bprintname,Point[] points) throws BlueprintNotFoundException {
 
     }
-
+*/
 }
